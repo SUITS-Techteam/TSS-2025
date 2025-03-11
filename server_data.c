@@ -10,6 +10,14 @@
 #include <stdlib.h>
 #include <time.h>
 
+
+#define ROVER_POI_1_X 1.000000
+#define ROVER_POI_1_Y 1.000000
+#define ROVER_POI_2_X 2.000000
+#define ROVER_POI_2_Y 2.000000
+#define ROVER_POI_3_X 3.000000
+#define ROVER_POI_3_Y 3.000000
+
 // Helper functions
 size_t rover_index();
 
@@ -767,23 +775,48 @@ bool udp_get_imu(unsigned int command, unsigned char* data){
 }
 
 // -------------------------- ROVER --------------------------------
-bool build_json_rover(struct rover_data_t* rover){
+bool build_json_rover(struct rover_data_t* rover){ 
 
     const char format_buffer[512] = 
     "\n{"
 	"\n\t\"rover\": {"
 	"\n\t\t\"posx\": %f,"
 	"\n\t\t\"posy\": %f,"
-	"\n\t\t\"qr_id\": %d"
+	"\n\t\t\"poi_1_x\": %f,"
+    "\n\t\t\"poi_1_y\": %f,"
+	"\n\t\t\"poi_2_x\": %f,"
+    "\n\t\t\"poi_2_y\": %f,"
+	"\n\t\t\"poi_3_x\": %f,"
+    "\n\t\t\"poi_3_y\": %f"
 	"\n\t}"
     "\n}";
-
     char out_buffer[512];
     sprintf(out_buffer, format_buffer, 
         rover->pos_x,
-        rover->pos_y, 
-        rover->prev_qr_scan
+        rover->pos_y,
+        rover->poi_1_x,
+        rover->poi_1_y,
+        rover->poi_2_x,
+        rover->poi_2_y,
+        rover->poi_3_x,
+        rover->poi_3_y, 
+        rover->ping
     );
+    //  const char format_buffer[512] = 
+    // "\n{"
+	// "\n\t\"rover\": {"
+	// "\n\t\t\"poi_1\": %f,"
+	// "\n\t\t\"poi_2\": %f,"
+	// "\n\t\t\"poi_3\": %f"
+	// "\n\t}"
+    // "\n}";
+
+    // char out_buffer[512];
+    // sprintf(out_buffer, format_buffer, 
+    //     rover->poi_1,
+    //     rover->poi_2, 
+    //     rover->poi_3
+    // );
     
     // Write bytes to file
     FILE* fd_rover = fopen("public/json_data/ROVER.json", "w");
@@ -796,11 +829,13 @@ bool build_json_rover(struct rover_data_t* rover){
 
 bool update_rover(char* request_content, struct rover_data_t* rover){
 
-    if(strncmp(request_content, "qr=", strlen("qr=")) == 0) {
-        request_content += strlen("qr=");
-        rover->prev_qr_scan = atoi(request_content);
-        printf("ROVER QR: %d\n", rover->prev_qr_scan);
-    } else if(strncmp(request_content, "posx=", strlen("posx=")) == 0) {
+    // if(strncmp(request_content, "qr=", strlen("qr=")) == 0) {
+    //     request_content += strlen("qr=");
+    //     rover->prev_qr_scan = atoi(request_content);
+    //     printf("ROVER QR: %d\n", rover->prev_qr_scan);
+    //} else 
+    
+    if(strncmp(request_content, "posx=", strlen("posx=")) == 0) {
         request_content += strlen("posx=");
         rover->pos_x = atof(request_content);
         printf("ROVER Pos x: %f\n", rover->pos_x);
@@ -808,6 +843,15 @@ bool update_rover(char* request_content, struct rover_data_t* rover){
         request_content += strlen("posy=");
         rover->pos_y = atof(request_content);
         printf("ROVER Pos x: %f\n", rover->pos_y);
+    } else if(strncmp(request_content, "ping=", strlen("ping=")) == 0) {
+        
+        rover->poi_1_x = ROVER_POI_1_X;
+        rover->poi_1_y = ROVER_POI_1_Y;
+        rover->poi_2_x = ROVER_POI_2_X;
+        rover->poi_2_y = ROVER_POI_2_Y; 
+        rover->poi_3_x = ROVER_POI_3_X;
+        rover->poi_3_y = ROVER_POI_3_Y;
+
     } else {
         return false;
     }

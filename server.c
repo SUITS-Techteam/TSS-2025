@@ -105,6 +105,7 @@ int main(int argc, char* argv[])
         return -1;
     }
     #endif
+    FILE *fptr;
 
     // ----------------- Begin Main Program Space -------------------------
     struct timespec time_begin, time_end, time_delta;
@@ -138,6 +139,10 @@ int main(int argc, char* argv[])
     else{
         get_ip_address(hostname);
     }
+
+    fptr = fopen("./public/server_ip.txt", "w");
+    fprintf(fptr, hostname);
+    fclose(fptr);
 
     char* whitelist[MAX_LINE_LENGHT];
     int whitelist_size = 0;

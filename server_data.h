@@ -110,9 +110,9 @@
 #define PR_FAN_RPM 30000.0f
 
 //Other
-#define exp7           10000000i64     //1E+7     
-#define exp9         1000000000i64     //1E+9
-#define w2ux 116444736000000000i64     //1.jan1601 to 1.jan1970
+#define exp7           10000000i64   //1E+7     
+#define exp9         1000000000i64   //1E+9
+#define w2ux 116444736000000000i64   //1.jan1601 to 1.jan1970
 
 //
 
@@ -176,7 +176,13 @@ struct rover_data_t {
 
     float pos_x;
     float pos_y;
-    int   prev_qr_scan;
+    float poi_1_x;
+    float poi_1_y;
+    float poi_2_x;
+    float poi_2_y;
+    float poi_3_x;
+    float poi_3_y;
+    bool  ping;
     // other stuff
 
 };

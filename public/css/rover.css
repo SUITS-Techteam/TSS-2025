@@ -144,3 +144,126 @@
   border-style: solid;
   border-color: var(--white);
 }
+
+/**************** PR Telemetry CSS ****************/
+.prNameContainer {
+  width: 65%;
+  position: relative;
+  display: flex;
+  align-items: flex-end;
+  flex-wrap: nowrap;
+  justify-content: flex-start;
+}
+
+.prDataContainer {
+  width: 35%;
+  position: relative;
+  display: flex;
+  align-items: flex-end;
+  flex-wrap: nowrap;
+  justify-content: flex-start;
+}
+
+.prDataTitle {
+  color: var(--white);
+  font-size: 1rem;
+  white-space: nowrap;
+  font-weight: bold;
+}
+
+.prData {
+  color: var(--white);
+  font-size: .85rem;
+  white-space: nowrap;
+}
+
+.prButton {
+  background-color: white;
+  border-radius: 5rem;
+  height: 1.5rem;
+  width: 1.5rem;
+}
+
+.prButton:hover {
+  background-color: gray;
+  border-radius: 5rem;
+  height: 1.5rem;
+  width: 1.5rem;
+}
+
+.prButton:active {
+  background-color: greenyellow;
+  border-radius: 5rem;
+  height: 1.5rem;
+  width: 1.5rem;
+}
+
+/**************** Telemetry CSS ****************/
+.telemetryStartButton {
+  margin-left: .75rem;
+  margin-right: .75rem;
+  height: 2rem;
+  width: 6.5rem;
+  border-radius: .25rem;
+  color: var(--white);
+  font-size: .9rem;
+  background-color: rgba(0, 150, 10, 1);
+  opacity: .75;
+  border: none;
+}
+
+.telemetryStopButton {
+  margin-left: .75rem;
+  margin-right: .75rem;
+  height: 2rem;
+  width: 6.5rem;
+  border-radius: .25rem;
+  color: var(--white);
+  font-size: .9rem;
+  background-color: var(--darker-grey);
+  opacity: .75;
+  border: none;
+}
+
+.telemetryStartButton:hover {
+  opacity: 1;
+  transition: 1s;
+}
+
+.telemetryStopButton:hover {
+  opacity: 1;
+  transition: 1s;
+}
+
+
+/**************** Telemetry State CSS ****************/
+.telemetryStateNameContainer {
+  width: 65%;
+  position: relative;
+  display: flex;
+  align-items: flex-end;
+  flex-wrap: nowrap;
+  justify-content: flex-start;
+}
+
+.telemetryStateDataContainer {
+  width: 35%;
+  position: relative;
+  display: flex;
+  align-items: flex-end;
+  flex-wrap: nowrap;
+  justify-content: flex-start;
+}
+
+.telemetryStateDataTitle {
+  color: var(--white);
+  font-size: 1rem;
+  white-space: nowrap;
+  font-weight: bold;
+}
+
+.telemetryStateData {
+  color: var(--white);
+  font-size: .85rem;
+  white-space: nowrap;
+}
