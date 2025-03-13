@@ -3,3 +3,15 @@
 *.exe
 *.lib
 *.exp
+public/server_ip.txt
+public/json_data/teams/0/ROVER_TELEMETRY.json
+public/json_data/teams/1/ROVER_TELEMETRY.json
+public/json_data/teams/10/ROVER_TELEMETRY.json
+public/json_data/teams/2/ROVER_TELEMETRY.json
+public/json_data/teams/3/ROVER_TELEMETRY.json
+public/json_data/teams/4/ROVER_TELEMETRY.json
+public/json_data/teams/5/ROVER_TELEMETRY.json
+public/json_data/teams/6/ROVER_TELEMETRY.json
+public/json_data/teams/7/ROVER_TELEMETRY.json
+public/json_data/teams/8/ROVER_TELEMETRY.json
+public/json_data/teams/9/ROVER_TELEMETRY.json

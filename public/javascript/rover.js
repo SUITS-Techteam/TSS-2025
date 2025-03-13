@@ -11,7 +11,7 @@ let poi3y = document.getElementById('poi3y');
 
 // Loads the rover video feed
 function loadVideoFeed() {
-    video.src = "http://192.168.51.194:8080/stream?topic=/camera/image_raw&type=ros_compressed";
+    video.src = "http://192.168.51.163:8080/stream?topic=/camera/image_raw&type=ros_compressed";
 }
 
 function loadPOI(){
@@ -22,9 +22,9 @@ function loadPOI(){
         method: "POST",
         headers: {
             "Content-Type": "text/plain",
-            "User-Agent": "rover_"  // Optional, to match the C request
+            "User-Agent": "rover_" 
         },
-        body: "rover_ping=true" // Raw text body
+        body: "rover_ping=true" 
     }))
     .then(response => response.text()) 
     .then(data => console.log("Success:", data))
