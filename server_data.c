@@ -49,19 +49,19 @@ void handle_udp_get_request(unsigned int command, unsigned char* data, struct ba
         printf("Getting IMU.\n");
         udp_get_imu(command, data);
     }
-    else if(command < 26){
-        printf("Getting ROVER.\n");
+    else if(command < 31){
+        printf("Getting LTV.\n");
         udp_get_rover(command, data);
     }
-    else if(command < 48){
+    else if(command < 53){
         printf("Getting SPEC.\n");
         udp_get_spec(command, data);
     }
-    else if(command < 58){
+    else if(command < 63){
         printf("Getting UIA.\n");
         udp_get_uia(command, data);
     }
-    else if(command < 103){
+    else if(command < 108){
         printf("Getting Telemetry.\n");
         unsigned int team_number = 0;
         float fl;
@@ -71,7 +71,7 @@ void handle_udp_get_request(unsigned int command, unsigned char* data, struct ba
 
         udp_get_telemetry(command, team_number, data);
     }
-    else if(command < 119){
+    else if(command < 124){
         printf("Getting EVA.\n");
         unsigned int team_number = 0;
         float fl;
@@ -81,7 +81,7 @@ void handle_udp_get_request(unsigned int command, unsigned char* data, struct ba
 
         udp_get_eva(command, team_number, data);
     }
-    else if(command < 167){
+    else if(command < 172){
         printf("Getting Rover Telemetry.\n");
 
         udp_get_pr_telemetry(command, data, backend);
@@ -382,7 +382,7 @@ bool update_uia(char* request_content, struct uia_data_t* uia){
 
 bool udp_get_uia(unsigned int command, unsigned char* data){
 
-    int off_set = command - 48;
+    int off_set = command - 53;
     //Open file
     FILE* fp = fopen("public/json_data/UIA.json", "r");
     if (fp == NULL) { 
@@ -787,7 +787,8 @@ bool build_json_rover(struct rover_data_t* rover){
 	"\n\t\t\"poi_2_x\": %f,"
     "\n\t\t\"poi_2_y\": %f,"
 	"\n\t\t\"poi_3_x\": %f,"
-    "\n\t\t\"poi_3_y\": %f"
+    "\n\t\t\"poi_3_y\": %f,"
+    "\n\t\t\"ping\": %s"
 	"\n\t}"
     "\n}";
     char out_buffer[512];
@@ -800,23 +801,10 @@ bool build_json_rover(struct rover_data_t* rover){
         rover->poi_2_y,
         rover->poi_3_x,
         rover->poi_3_y, 
-        rover->ping
+        rover->ping ? "true" : "false"
     );
-    //  const char format_buffer[512] = 
-    // "\n{"
-	// "\n\t\"rover\": {"
-	// "\n\t\t\"poi_1\": %f,"
-	// "\n\t\t\"poi_2\": %f,"
-	// "\n\t\t\"poi_3\": %f"
-	// "\n\t}"
-    // "\n}";
 
-    // char out_buffer[512];
-    // sprintf(out_buffer, format_buffer, 
-    //     rover->poi_1,
-    //     rover->poi_2, 
-    //     rover->poi_3
-    // );
+   
     
     // Write bytes to file
     FILE* fd_rover = fopen("public/json_data/ROVER.json", "w");
@@ -834,7 +822,6 @@ bool update_rover(char* request_content, struct rover_data_t* rover){
     //     rover->prev_qr_scan = atoi(request_content);
     //     printf("ROVER QR: %d\n", rover->prev_qr_scan);
     //} else 
-    
     if(strncmp(request_content, "posx=", strlen("posx=")) == 0) {
         request_content += strlen("posx=");
         rover->pos_x = atof(request_content);
@@ -842,7 +829,7 @@ bool update_rover(char* request_content, struct rover_data_t* rover){
     } else if(strncmp(request_content, "posy=", strlen("posy=")) == 0) {
         request_content += strlen("posy=");
         rover->pos_y = atof(request_content);
-        printf("ROVER Pos x: %f\n", rover->pos_y);
+        printf("ROVER Pos y: %f\n", rover->pos_y);
     } else if(strncmp(request_content, "ping=", strlen("ping=")) == 0) {
         
         rover->poi_1_x = ROVER_POI_1_X;
@@ -851,6 +838,7 @@ bool update_rover(char* request_content, struct rover_data_t* rover){
         rover->poi_2_y = ROVER_POI_2_Y; 
         rover->poi_3_x = ROVER_POI_3_X;
         rover->poi_3_y = ROVER_POI_3_Y;
+        rover->ping    = request_content += strlen("ping=");
 
     } else {
         return false;
@@ -999,7 +987,7 @@ bool update_spec(char* request_content, struct spec_data_t* spec){
 
 bool udp_get_spec(unsigned int command, unsigned char* data){
 
-    int off_set = command - 26;
+    int off_set = command - 31;
     //Open file
     FILE* fp = fopen("public/json_data/SPEC.json", "r");
     if (fp == NULL) { 
@@ -2354,7 +2342,7 @@ void simulate_external_temperature(struct backend_data_t* backend){
 
 bool udp_get_telemetry(unsigned int command, unsigned int team_number, unsigned char* data){
 
-    int off_set = command - 58;
+    int off_set = command - 63;
 
     char start_path[50] = "public/json_data/teams/";
     char team[3] = "";
@@ -2436,7 +2424,7 @@ bool udp_get_telemetry(unsigned int command, unsigned int team_number, unsigned 
 }
 
 bool udp_get_pr_telemetry(unsigned int command, unsigned char* data, struct backend_data_t* backend){
-    int off_set = command - 119;
+    int off_set = command - 124;
 
     if(off_set > 47){
         printf("Not yet implemented.\n");
@@ -2513,7 +2501,7 @@ bool udp_get_pr_telemetry(unsigned int command, unsigned char* data, struct back
 }
 
 bool udp_get_eva(unsigned int command, unsigned int team_number, unsigned char* data){
-    int off_set = command - 103;
+    int off_set = command - 108;
 
     char start_path[50] = "public/json_data/teams/";
     char team[3] = "";

@@ -165,16 +165,16 @@ Here's a list of get commands you can send to the socket. They are mostly relate
 | 14-16          | Get ERROR states             | `ERROR.json` |
 | 17-19          | Get EVA1 IMU states             | `IMU.json` |
 | 20-22         | Get EVA2 IMU states             | `IMU.json` |
-| 23-25         | Get ROVER states             | `ROVER.json` |
-| 26-36         | Get EVA 1 SPEC states (excludes `name` field)            | `SPEC.json` |
-| 37-47        | Get EVA 2 SPEC states (excludes `name` field)              | `SPEC.json` |
-| 48-57        | Get UIA states             | `UIA.json` |
-| 58        | Get current EVA time for the team number passed in the data field as a float            | `/teams/x/TELEMTRY.json` |
-| 59-80        | Get TELEMETRY states for EVA1 and the team number passed in the data field as a float            | `/teams/x/TELEMTRY.json` |
-| 81-102        | Get TELEMETRY states for EVA1 and the team number passed in the data field as a float            | `/teams/x/TELEMTRY.json` |
-| 103-118        | Get EVA states for the team number passed in the data field as a float            | `/teams/x/EVA.json` |
-| 119-166        | Get Pressurized Rover states for the team currently running the PR sim | `/teams/x/ROVER_TELEMETRY.json` |
-| 167        | Get Pressurized Rover LIDAR data, explaned below | `/teams/x/ROVER_TELEMETRY.json` |
+| 23-30         | Get ROVER states             | `ROVER.json` |
+| 31-41         | Get EVA 1 SPEC states (excludes `name` field)            | `SPEC.json` |
+| 42-52        | Get EVA 2 SPEC states (excludes `name` field)              | `SPEC.json` |
+| 53-62        | Get UIA states             | `UIA.json` |
+| 63        | Get current EVA time for the team number passed in the data field as a float            | `/teams/x/TELEMTRY.json` |
+| 64-85        | Get TELEMETRY states for EVA1 and the team number passed in the data field as a float            | `/teams/x/TELEMTRY.json` |
+| 86-107        | Get TELEMETRY states for EVA1 and the team number passed in the data field as a float            | `/teams/x/TELEMTRY.json` |
+| 108-123        | Get EVA states for the team number passed in the data field as a float            | `/teams/x/EVA.json` |
+| 124-171        | Get Pressurized Rover states for the team currently running the PR sim | `/teams/x/ROVER_TELEMETRY.json` |
+| 172        | Get Pressurized Rover LIDAR data, explaned below | `/teams/x/ROVER_TELEMETRY.json` |
 
 ## Pressurized Rover LIDAR
 The pressurized rover in the DUST simulation has 13 'LIDAR' sensors. Each of these sensors are points that shoot out a ray 10 meters in a direction.The value of each sensor will be the distance in centimeters the ray took to hit something, or -1 if it didn't hit anything. The return data of the 165 command above will actually be a list of 13 float values instead of the normal 1 float. Here is a description of each sensor in order:
